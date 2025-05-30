@@ -1,0 +1,11 @@
+set number
+set relativenumber
+
+set ignorecase
+set smartcase
+
+set nowrap
+
+set scrolloff=10
+
+imap jj <Esc>
