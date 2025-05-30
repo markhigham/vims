@@ -4,3 +4,5 @@ vim.keymap.set("n", "<C-d>", vim.cmd.Ex)
 
 -- Disable Q
 vim.keymap.set("n", "Q", "<nop>")
+
+vim.keymap.set("i", "jj", "<Esc>")

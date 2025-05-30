@@ -38,3 +38,4 @@ vim.opt.signcolumn = "yes"
 -- Displays a vertical guide at column 80 — a reminder for line length limits
 -- (e.g. for Go, Python, or style guides).
 vim.opt.colorcolumn = "80"
+
