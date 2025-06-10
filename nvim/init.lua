@@ -359,6 +359,21 @@ require('lazy').setup({
   --
   -- Use the `dependencies` key to specify the dependencies of a particular plugin
 
+  {
+    'pmizio/typescript-tools.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    ft = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
+    opts = {
+      settings = {
+        separate_diagnostic_server = true,
+        publish_diagnostic_on = 'insert_leave', -- or "change"
+        expose_as_code_action = 'all', -- or {"add_missing_imports", "remove_unused"}
+        tsserver_plugins = {}, -- optional: add custom plugins
+        complete_function_calls = true,
+        include_completions_with_insert_text = true,
+      },
+    },
+  },
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
     event = 'VimEnter',
