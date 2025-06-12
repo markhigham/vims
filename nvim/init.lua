@@ -359,6 +359,25 @@ require('lazy').setup({
   --
   -- Use the `dependencies` key to specify the dependencies of a particular plugin
 
+  { 'augmentcode/augment.vim' },
+  {
+    'neovim/nvim-lspconfig',
+    config = function()
+      local lspconfig = require 'lspconfig'
+      lspconfig.pyright.setup {}
+      require('lspconfig').ruff_lsp.setup {
+        on_attach = function(client, bufnr)
+          client.server_capabilities.hoveProvider = false
+          client.server_capabilities.completionProvider = false
+        end,
+        init_options = {
+          settings = {
+            args = {}, -- you can pass extra ruff CLI args here
+          },
+        },
+      }
+    end,
+  },
   {
     'pmizio/typescript-tools.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
@@ -788,10 +807,10 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
+        python = { 'isort', 'black' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
       },
     },
   },
@@ -963,7 +982,25 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      fold = { enable = true },
+      ensure_installed = {
+        'bash',
+        'c',
+        'diff',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'vim',
+        'vimdoc',
+        'javascript',
+        'typescript',
+        'tsx',
+        'css',
+        'scss',
+      },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -1066,6 +1103,15 @@ require('lazy').setup({
     },
   },
 })
-
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'javascript', 'typescript', 'typescriptreact', 'javascriptreact' },
+  callback = function()
+    vim.opt_local.foldmethod = 'expr'
+    vim.opt_local.foldexpr = 'nvim_treesitter#foldexpr()'
+    vim.opt_local.foldenable = true
+    vim.opt_local.foldlevel = 99 -- Keep most folds open by default
+    vim.opt_local.foldlevelstart = 1 -- Or set to 0 to start with all folded
+  end,
+})
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
