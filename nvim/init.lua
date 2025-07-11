@@ -172,6 +172,7 @@ vim.o.confirm = true
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+vim.keymap.set('i', 'jj', '<Esc>', { desc = 'Escape insert mode' })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
@@ -193,7 +194,6 @@ vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left wind
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
-
 
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
 -- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
@@ -251,6 +251,7 @@ require('lazy').setup({
   --
   -- Use `opts = {}` to automatically pass options to a plugin's `setup()` function, forcing the plugin to be loaded.
   --
+  -- Lazy
   {
     'nvim-neotest/neotest',
     dependencies = {
@@ -267,15 +268,13 @@ require('lazy').setup({
         },
       }
 
-vim.keymap.set('n', '<leader>tn', function()
-  require('neotest').run.run()
-end)
-vim.keymap.set('n', '<leader>tf', function()
-  require('neotest').run.run(vim.fn.expand '%')
-end)
-vim.keymap.set('n', '<leader>ts', require('neotest').summary.toggle)
-
-
+      vim.keymap.set('n', '<leader>tn', function()
+        require('neotest').run.run()
+      end)
+      vim.keymap.set('n', '<leader>tf', function()
+        require('neotest').run.run(vim.fn.expand '%')
+      end)
+      vim.keymap.set('n', '<leader>ts', require('neotest').summary.toggle)
     end,
   },
   { 'tpope/vim-fugitive', event = 'VeryLazy' },
@@ -832,7 +831,7 @@ vim.keymap.set('n', '<leader>ts', require('neotest').summary.toggle)
         python = { 'isort', 'black' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        javascript = { 'prettier', stop_after_first = true },
       },
     },
   },
