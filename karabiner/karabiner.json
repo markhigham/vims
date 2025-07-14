@@ -4,7 +4,7 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "Right Ctrl + Number to Ctrl+B, Number (tmux window switch)",
+                        "description": "Right Option + Number to Ctrl+B, Number (tmux window switch)",
                         "manipulators": [
                             {
                                 "from": {
