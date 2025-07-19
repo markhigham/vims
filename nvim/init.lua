@@ -388,6 +388,13 @@ require('lazy').setup({
     config = function()
       local lspconfig = require 'lspconfig'
       lspconfig.pyright.setup {}
+
+      require('lspconfig').tsserver.setup {
+        on_attach = function(client, bufnr)
+          client.server_capabilities.documentFormattingProvider = false
+        end,
+      }
+
       require('lspconfig').ruff_lsp.setup {
         on_attach = function(client, bufnr)
           client.server_capabilities.hoveProvider = false
@@ -834,6 +841,9 @@ require('lazy').setup({
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         javascript = { 'prettier', stop_after_first = true },
+        javascriptreact = { 'prettier', stop_after_first = true },
+        typescript = { 'prettier', stop_after_first = true },
+        typescriptreact = { 'prettier', stop_after_first = true },
       },
     },
   },
@@ -1133,7 +1143,7 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.opt_local.foldexpr = 'nvim_treesitter#foldexpr()'
     vim.opt_local.foldenable = true
     vim.opt_local.foldlevel = 99 -- Keep most folds open by default
-    vim.opt_local.foldlevelstart = 1 -- Or set to 0 to start with all folded
+    vim.opt_local.foldlevelstart = 99 -- Or set to 0 to start with all folded
   end,
 })
 -- The line beneath this is called `modeline`. See `:help modeline`
