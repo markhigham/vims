@@ -1052,6 +1052,14 @@ require('lazy').setup({
     --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
+  { 'nvim-treesitter/nvim-treesitter-context', 
+    opts = {
+    max_lines = 3,
+  },
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    event = 'BufReadPost',
+     config = true,
+   },
   {
     'nvimtools/none-ls.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
