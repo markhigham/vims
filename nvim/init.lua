@@ -91,7 +91,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -499,6 +499,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
+      vim.keymap.set('n', '<leader>sc', builtin.git_status, { desc = '[S]earch [C]hanged files' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
@@ -1052,14 +1053,15 @@ require('lazy').setup({
     --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
-  { 'nvim-treesitter/nvim-treesitter-context', 
+  {
+    'nvim-treesitter/nvim-treesitter-context',
     opts = {
-    max_lines = 3,
-  },
+      max_lines = 3,
+    },
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     event = 'BufReadPost',
-     config = true,
-   },
+    config = true,
+  },
   {
     'nvimtools/none-ls.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
@@ -1151,7 +1153,7 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.opt_local.foldexpr = 'nvim_treesitter#foldexpr()'
     vim.opt_local.foldenable = true
     vim.opt_local.foldlevel = 99 -- Keep most folds open by default
-    vim.opt_local.foldlevelstart = 99 -- Or set to 0 to start with all folded
+    vim.opt_local.foldlevelstart = 5 -- Or set to 0 to start with all folded
   end,
 })
 -- The line beneath this is called `modeline`. See `:help modeline`
